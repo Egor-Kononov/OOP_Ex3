@@ -10,7 +10,7 @@ class DiGraph(GraphInterface):
         self.mc = 0
 
     def __repr__(self):
-        return f"graph :  e_size:{self.edge_size}, v_size:{len(self.graph)}, mc:{self.mc}"
+        return f"graph : {self.graph}, e_size:{self.edge_size}, v_size:{len(self.graph)}, mc:{self.mc}"
 
     def v_size(self):
         return len(self.graph)
