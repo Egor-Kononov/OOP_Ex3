@@ -12,6 +12,11 @@ class DiGraph(GraphInterface):
     def __repr__(self):
         return f"graph : {self.graph}, e_size:{self.edge_size}, v_size:{len(self.graph)}, mc:{self.mc}"
 
+    def get_node(self, id1: int):
+        if id1 not in self.graph:
+            return None
+        return self.graph[id1]
+
     def v_size(self):
         return len(self.graph)
 
@@ -20,6 +25,9 @@ class DiGraph(GraphInterface):
 
     def get_all_v(self):
         return self.graph.items()
+
+    def get_all_values(self):
+        return self.graph.values()
 
     def all_in_edges_of_node(self, id1: int):
         edges_dict = {}
@@ -34,7 +42,6 @@ class DiGraph(GraphInterface):
     def add_node(self, node_id: int, pos: tuple = None):
         if node_id in self.graph:
             return False
-
         node = Node(node_id, pos)
         self.graph[node.id] = node
         self.mc += 1
@@ -76,8 +83,14 @@ class Node:
 
     def __init__(self, id: int = 0, pos: tuple = None):
         self.id = id
-        self.pos = pos
+        if pos is None:
+            self.pos = (0, 0, 0)
+        else:
+            self.pos = pos
         self.neighbors = dict()
+        self.visited = False
+        self.distance = float('inf')
+        self.previous = None
 
     def __repr__(self):
         return f"node : node_id:{self.id}, pos:{self.pos}, Neighbors:{self.neighbors}"
