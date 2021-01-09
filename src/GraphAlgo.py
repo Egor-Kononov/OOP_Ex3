@@ -5,9 +5,11 @@ import heapq
 
 
 class GraphAlgo(GraphAlgoInterface):
+    list = []
 
     def __init__(self, graph: DiGraph = DiGraph()):
         self.graph = graph
+        self.Time = 0
 
     def get_graph(self):
         return self.graph
@@ -79,25 +81,86 @@ class GraphAlgo(GraphAlgoInterface):
             runner.previous = None
             runner.visited = False
 
-    def connected_component(self, id1: int) -> list:
-        return
+    def connected_component(self, id1: int):
+        stack = []
+        node = self.graph.get_node(id1)
+        if node is None:
+            return self.list
+        self.SCC(node, stack)
+        l = self.list
+        self.nullify_scc()
+        return l
 
-    def connected_components(self) -> list[list]:
-        return
+    def connected_components(self):
+        st = []
+        if self.graph.v_size() == 0:
+            return self.list
+        for temp in self.graph.get_all_values():
+            if temp.disc == -1:
+                self.SCC(temp, st)
+
+        list_of_list = self.list
+        self.nullify_scc()
+        return list_of_list
 
     def plot_graph(self) -> None:
         return
 
+    def SCC(self, u, stack):
+        u.disc = self.Time
+        u.low = self.Time
+        self.Time += 1
+        u.visited = True
+        stack.append(u)
+
+        for v in u.neighbors.keys():
+            vert = self.graph.get_node(v)
+            if vert.disc == -1:
+                self.SCC(vert, stack)
+
+                u.low = min(u.low, vert.low)
+            elif vert.visited is True:
+                u.low = min(u.low, vert.disc)
+
+        w = -1  # To store stack extracted vertices
+        if u.low == u.disc:
+            l2 = []
+            while w != u.id:
+                node = stack.pop()
+                l2.append(node)
+                w = node.id
+                node.visited = False
+
+            self.list.append(l2)
+
+    def nullify_scc(self):
+        self.Time = 0
+        self.list = []
+        for runner in self.graph.get_all_values():
+            runner.visited = False
+            runner.disc = -1
+            runner.low = -1
+
 
 if __name__ == '__main__':
-    g = DiGraph()
-    for i in range(6):
-        g.add_node(i)
-    g.add_edge(0, 1, 2)
-    g.add_edge(1, 2, 5)
-    g.add_edge(1, 4, 10)
-    g.add_edge(2, 3, 1)
-    g.add_edge(3, 4, 1)
-    algo = GraphAlgo(g)
-    algo.load_from_json("A0")
-    print(algo.get_graph())
+    g4 = DiGraph()
+    # for i in range(11):
+    #     g4.add_node(i)
+    # g4.add_edge(0, 1, 0);
+    # g4.add_edge(0, 3, 0);
+    # g4.add_edge(1, 2, 0);
+    # g4.add_edge(1, 4, 0);
+    # g4.add_edge(2, 0, 0);
+    # g4.add_edge(2, 6, 0);
+    # g4.add_edge(3, 2, 0);
+    # g4.add_edge(4, 5, 0);
+    # g4.add_edge(4, 6, 0);
+    # g4.add_edge(5, 6, 0);
+    # g4.add_edge(5, 7, 0);
+    # g4.add_edge(5, 8, 0);
+    # g4.add_edge(5, 9, 0);
+    # g4.add_edge(6, 4, 0);
+    # g4.add_edge(7, 9, 0);
+    # g4.add_edge(8, 9, 0);
+    # g4.add_edge(9, 8, 0);
+    algo = GraphAlgo(g4)

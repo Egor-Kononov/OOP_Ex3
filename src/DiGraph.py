@@ -87,13 +87,15 @@ class Node:
             self.pos = (0, 0, 0)
         else:
             self.pos = pos
+        self.disc = -1
+        self.low = -1
         self.neighbors = dict()
         self.visited = False
         self.distance = float('inf')
         self.previous = None
 
     def __repr__(self):
-        return f"node : node_id:{self.id}, pos:{self.pos}, Neighbors:{self.neighbors}"
+        return f"node : node_id:{self.id},"
 
     def add_neighbor(self, dest: int, weight: float):
         self.neighbors[dest] = weight
@@ -101,5 +103,6 @@ class Node:
     def remove_neighbor(self, dest: int):
         self.neighbors.pop(dest)
 
-
+    def get_neighbors(self):
+        return self.neighbors.keys()
 
