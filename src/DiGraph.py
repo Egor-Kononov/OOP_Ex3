@@ -78,6 +78,10 @@ class DiGraph(GraphInterface):
         self.mc += 1
         return True
 
+    def __eq__(self, o: object) -> bool:
+        if isinstance(o, DiGraph):
+            return self.graph == o.graph
+
 
 class Node:
 
@@ -105,4 +109,10 @@ class Node:
 
     def get_neighbors(self):
         return self.neighbors.keys()
+
+    def __eq__(self, o: object) -> bool:
+        if isinstance(o, Node):
+            return self.id == o.id and self.neighbors == o.neighbors
+
+
 

@@ -5,11 +5,11 @@ import heapq
 
 
 class GraphAlgo(GraphAlgoInterface):
-    list = []
 
     def __init__(self, graph: DiGraph = DiGraph()):
         self.graph = graph
         self.Time = 0
+        self.list = []
 
     def get_graph(self):
         return self.graph
@@ -46,6 +46,8 @@ class GraphAlgo(GraphAlgoInterface):
         if self.graph.get_node(id1) is None or self.graph.get_node(id2) is None:
             return float('inf'), []
         node = self.graph.get_node(id1)
+        if id1 == id2:
+            return 0, [id1]
         node.distance = 0
         pq = [(node.distance, node)]
         while len(pq) > 0:
@@ -87,9 +89,11 @@ class GraphAlgo(GraphAlgoInterface):
         if node is None:
             return self.list
         self.SCC(node, stack)
-        l = self.list
-        self.nullify_scc()
-        return l
+        for list1 in self.list:
+            if node in list1:
+                self.nullify_scc()
+                return list1
+        return list
 
     def connected_components(self):
         st = []
@@ -140,27 +144,3 @@ class GraphAlgo(GraphAlgoInterface):
             runner.visited = False
             runner.disc = -1
             runner.low = -1
-
-
-if __name__ == '__main__':
-    g4 = DiGraph()
-    # for i in range(11):
-    #     g4.add_node(i)
-    # g4.add_edge(0, 1, 0);
-    # g4.add_edge(0, 3, 0);
-    # g4.add_edge(1, 2, 0);
-    # g4.add_edge(1, 4, 0);
-    # g4.add_edge(2, 0, 0);
-    # g4.add_edge(2, 6, 0);
-    # g4.add_edge(3, 2, 0);
-    # g4.add_edge(4, 5, 0);
-    # g4.add_edge(4, 6, 0);
-    # g4.add_edge(5, 6, 0);
-    # g4.add_edge(5, 7, 0);
-    # g4.add_edge(5, 8, 0);
-    # g4.add_edge(5, 9, 0);
-    # g4.add_edge(6, 4, 0);
-    # g4.add_edge(7, 9, 0);
-    # g4.add_edge(8, 9, 0);
-    # g4.add_edge(9, 8, 0);
-    algo = GraphAlgo(g4)
