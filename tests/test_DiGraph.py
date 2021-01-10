@@ -13,6 +13,7 @@ class MyT(unittest.TestCase):
     def test_add(self):
         self.assertTrue(5 == self.g.v_size())
         self.assertFalse(self.g.add_node(4))
+        self.assertTrue(self.g.add_node(10))
 
     def test_remove(self):
         self.assertTrue(self.g.remove_node(4))
