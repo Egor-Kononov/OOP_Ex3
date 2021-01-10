@@ -19,7 +19,14 @@ class GraphAlgo(GraphAlgoInterface):
             g = DiGraph()
             x = json.load(json_file)
             for i in x['Nodes']:
-               g.add_node(i['id'], i['pos'])
+                temp = []
+                if type(i['pos']) == str:
+                    for s in i['pos'].split(","):
+                        temp.append(float(s))
+                    tup = (temp[0], temp[1], temp[2])
+                    g.add_node(i['id'], tup)
+                else:
+                    g.add_node(i['id'], i['pos'])
             for j in x['Edges']:
                 g.add_edge(j['src'], j['dest'], j['w'])
             self.graph = g
