@@ -35,9 +35,12 @@ https://www.geeksforgeeks.org/dijkstras-shortest-path-algorithm-greedy-algo-7/
 ![](https://github.com/Guppi4/Ex3_python/blob/main/Dijkstra-Algorithm-Step-7.png?raw=true)
 
 
+
 # How does a directed floating graph visually look like
 <h4 id="login-optional-fields-3">
- ![](https://github.com/Guppi4/Ex3_python/blob/main/2.PNG?raw=true)
+ 
+ ![](https://github.com/Guppi4/Ex3_python/blob/main/2.jpeg?raw=true)  ![](https://github.com/Guppi4/Ex3_python/blob/main/%D0%A1%D0%BD%D0%B8%D0%BC%D0%BE%D0%BA.PNG?raw=true)
+ 
 
 
 
