@@ -19,9 +19,9 @@ class GraphAlgo(GraphAlgoInterface):
             g = DiGraph()
             x = json.load(json_file)
             for i in x['Nodes']:
-                temp = []
                 if 'pos' in i.keys():
                     if type(i['pos']) == str:
+                        temp = []
                         for s in i['pos'].split(","):
                             temp.append(float(s))
                         tup = (temp[0], temp[1], temp[2])
@@ -42,7 +42,7 @@ class GraphAlgo(GraphAlgoInterface):
         data['Edges'] = []
         for i, e in self.graph.get_all_v():
             data['Nodes'].append({'id': i,
-                                  'pos': str(e.pos)})
+                                  'pos': f"{str(e.pos[0])},{str(e.pos[1])},{str(e.pos[2])}"})
             for x, y in e.neighbors.items():
                 data['Edges'].append({'src': i,
                                       'w': y,
