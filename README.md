@@ -4,7 +4,7 @@
 
 2 [basic algorithms](#login-optional-fields-2)
 
-3 [How can you run the game?](#login-optional-fields-3)
+3 [how does a directed floating graph visually look like](#login-optional-fields-3)
 
 <h4 id="login-optional-fields">
 
@@ -34,9 +34,12 @@ https://www.geeksforgeeks.org/dijkstras-shortest-path-algorithm-greedy-algo-7/
 
 ![](https://github.com/Guppi4/Ex3_python/blob/main/Dijkstra-Algorithm-Step-7.png?raw=true)
 
-<h4 id="login-optional-fields-3">
 
-# 
+# How does a directed floating graph visually look like
+<h4 id="login-optional-fields-3">
+ ![](https://github.com/Guppi4/Ex3_python/blob/main/2.PNG?raw=true)
+
+
 
 </h4>
 
