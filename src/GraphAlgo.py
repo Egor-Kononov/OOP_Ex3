@@ -1,7 +1,9 @@
+import random
 from DiGraph import DiGraph
 from GraphAlgoInterface import GraphAlgoInterface
 import json
 import heapq
+import matplotlib.pyplot as plt
 
 
 class GraphAlgo(GraphAlgoInterface):
@@ -118,30 +120,21 @@ class GraphAlgo(GraphAlgoInterface):
         return list_of_list
 
     def plot_graph(self) -> None:
-        return
-        def plot_graph(self) -> None:
         if self.graph is None:
             return
-        x1=[]
-        y1=[]
-        t = {}
+        x1 = []
+        y1 = []
         for key in self.graph.graph.keys():
-
-            pos=self.graph.graph[key].pos
-            pos1=()
-            pp={}
-            co=0
-
-            if pos==(0,0,0):
+            pos = self.graph.graph[key].pos
+            if pos == (0, 0, 0):
                 self.graph.graph[key].pos = (random.uniform(0.0, 70), random.uniform(0.0, 70), 0.0)
                 pos = self.graph.graph[key].pos
             else:
 
                 pos = (pos[0], pos[1], pos[2])
-            self.graph.graph[key].pos=pos
+            self.graph.graph[key].pos = pos
             x1.append(pos[0])
             y1.append(pos[1])
-        o=[]
         plt.plot(x1, y1, '.', color='blue')
         for key in self.graph.graph.keys():
             plt.annotate(key, xy=(self.graph.graph[key].pos[0], self.graph.graph[key].pos[1]), xycoords='data',
@@ -149,17 +142,14 @@ class GraphAlgo(GraphAlgoInterface):
                          xytext=(self.graph.graph[key].pos[0], self.graph.graph[key].pos[1]), textcoords='data',
                          arrowprops=dict(arrowstyle="<|-|>"))
             for kei in self.graph.graph[key].neighbors.keys():
-
-                 plt.annotate(key, xy=(self.graph.graph[kei].pos[0], self.graph.graph[kei].pos[1]), xycoords='data',bbox=dict(boxstyle="round4,pad=.5", fc="0.9"),
+                plt.annotate(key, xy=(self.graph.graph[kei].pos[0], self.graph.graph[kei].pos[1]), xycoords='data',
+                             bbox=dict(boxstyle="round4,pad=.5", fc="0.9"),
                              xytext=(self.graph.graph[key].pos[0], self.graph.graph[key].pos[1]), textcoords='data',
                              arrowprops=dict(arrowstyle="-|>"))
 
-
-
-
-
         plt.title("Graph")
         plt.show()
+
     def SCC(self, u, stack):
         u.disc = self.Time
         u.low = self.Time
