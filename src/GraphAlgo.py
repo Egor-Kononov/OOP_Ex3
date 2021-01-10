@@ -20,13 +20,16 @@ class GraphAlgo(GraphAlgoInterface):
             x = json.load(json_file)
             for i in x['Nodes']:
                 temp = []
-                if type(i['pos']) == str:
-                    for s in i['pos'].split(","):
-                        temp.append(float(s))
-                    tup = (temp[0], temp[1], temp[2])
-                    g.add_node(i['id'], tup)
+                if 'pos' in i.keys():
+                    if type(i['pos']) == str:
+                        for s in i['pos'].split(","):
+                            temp.append(float(s))
+                        tup = (temp[0], temp[1], temp[2])
+                        g.add_node(i['id'], tup)
+                    else:
+                        g.add_node(i['id'], i['pos'])
                 else:
-                    g.add_node(i['id'], i['pos'])
+                    g.add_node(i['id'])
             for j in x['Edges']:
                 g.add_edge(j['src'], j['dest'], j['w'])
             self.graph = g
@@ -39,7 +42,7 @@ class GraphAlgo(GraphAlgoInterface):
         data['Edges'] = []
         for i, e in self.graph.get_all_v():
             data['Nodes'].append({'id': i,
-                                  'pos': e.pos})
+                                  'pos': str(e.pos)})
             for x, y in e.neighbors.items():
                 data['Edges'].append({'src': i,
                                       'w': y,
