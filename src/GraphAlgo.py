@@ -151,7 +151,7 @@ class GraphAlgo(GraphAlgoInterface):
         plt.show()
 
     def bfs(self, node, gr):
-        stack = deque()
+        stack = set()
         if node.visited:
             pass
         else:
@@ -162,7 +162,7 @@ class GraphAlgo(GraphAlgoInterface):
                 if temp.visited:
                     pass
                 else:
-                    stack.append(temp.id)
+                    stack.add(temp.id)
                     temp.visited = True
                     for i in temp.neighbors.keys():
                         var = gr.get_node(i)
@@ -197,7 +197,7 @@ class GraphAlgo(GraphAlgoInterface):
     def scc(self, node, gr):
         stack = self.bfs(node, self.graph)
         while len(stack) != 0:
-            temp = self.graph.get_node(stack.popleft())
+            temp = self.graph.get_node(stack.pop())
             if temp.low == -1:
                 con_st = self.bfs1(gr.get_node(temp.id), gr, stack)
                 con_list = []
