@@ -23,9 +23,14 @@ This project presents a directed weighted graph written using the language *Pyth
 </h4>
 
 
-![](https://github.com/Guppi4/Ex3_python/blob/main/Algorithm_Tarjan.png?raw=true)
+
 
 Iterative  Strongly Connected Components algoritm used *BFS*
+![](https://github.com/Guppi4/Ex3_python/blob/main/Algorithm_Tarjan.png?raw=true)
+
+Dijkstra's algorithm-is an algorithm for finding the shortest paths between nodes in a graph, which may represent, for example, road networks. It was conceived by computer scientist Edsger W. Dijkstra in 1956 and published three years later.[5][6][7]
+
+The algorithm exists in many variants. Dijkstra's original algorithm found the shortest path between two given nodes,[7] but a more common variant fixes a single node as the "source" node and finds shortest paths from the source to all other nodes in the graph, producing a shortest-path tree.
 
 ![](https://github.com/Guppi4/Ex3_python/blob/main/Dijkstra-Algorithm-Step-7.png?raw=true)
 
