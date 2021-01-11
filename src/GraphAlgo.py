@@ -1,4 +1,6 @@
 import random
+from collections import deque
+from datetime import datetime
 from DiGraph import DiGraph
 from GraphAlgoInterface import GraphAlgoInterface
 import json
@@ -10,7 +12,6 @@ class GraphAlgo(GraphAlgoInterface):
 
     def __init__(self, graph: DiGraph = DiGraph()):
         self.graph = graph
-        self.Time = 0
         self.list = []
 
     def get_graph(self):
@@ -96,11 +97,11 @@ class GraphAlgo(GraphAlgoInterface):
             runner.visited = False
 
     def connected_component(self, id1: int):
-        stack = []
         node = self.graph.get_node(id1)
         if node is None:
             return self.list
-        self.SCC(node, stack)
+        gr = self.transpose()
+        self.scc(node, gr)
         for list1 in self.list:
             if node in list1:
                 self.nullify_scc()
@@ -108,13 +109,12 @@ class GraphAlgo(GraphAlgoInterface):
         return list
 
     def connected_components(self):
-        st = []
         if self.graph.v_size() == 0:
             return self.list
+        gr = self.transpose()
         for temp in self.graph.get_all_values():
             if temp.disc == -1:
-                self.SCC(temp, st)
-
+                self.scc(temp, gr)
         list_of_list = self.list
         self.nullify_scc()
         return list_of_list
@@ -150,35 +150,75 @@ class GraphAlgo(GraphAlgoInterface):
         plt.title("Graph")
         plt.show()
 
-    def SCC(self, u, stack):
-        u.disc = self.Time
-        u.low = self.Time
-        self.Time += 1
-        u.visited = True
-        stack.append(u)
+    def bfs(self, node, gr):
+        stack = deque()
+        if node.visited:
+            pass
+        else:
+            queue = deque()
+            queue.append(node)
+            while len(queue) != 0:
+                temp = queue.popleft()
+                if temp.visited:
+                    pass
+                else:
+                    stack.append(temp.id)
+                    temp.visited = True
+                    for i in temp.neighbors.keys():
+                        var = gr.get_node(i)
+                        if var.visited:
+                            pass
+                        else:
+                            queue.append(var)
+        return stack
 
-        for v in u.neighbors.keys():
-            vert = self.graph.get_node(v)
-            if vert.disc == -1:
-                self.SCC(vert, stack)
+    def bfs1(self, node, gr, st):
+        stack = deque()
+        if node.visited:
+            pass
+        else:
+            queue = deque()
+            queue.append(node)
+            while len(queue) != 0:
+                temp = queue.popleft()
+                if temp.visited:
+                    pass
+                else:
+                    stack.append(temp)
+                    temp.visited = True
+                    for i in temp.neighbors.keys():
+                        var = gr.get_node(i)
+                        if var.visited or i not in st:
+                            pass
+                        else:
+                            queue.append(var)
+        return stack
 
-                u.low = min(u.low, vert.low)
-            elif vert.visited is True:
-                u.low = min(u.low, vert.disc)
+    def scc(self, node, gr):
+        stack = self.bfs(node, self.graph)
+        while len(stack) != 0:
+            temp = self.graph.get_node(stack.popleft())
+            if temp.low == -1:
+                con_st = self.bfs1(gr.get_node(temp.id), gr, stack)
+                con_list = []
+                while len(con_st) != 0:
+                    temp = con_st.popleft()
+                    node = self.graph.get_node(temp.id)
+                    node.disc = 0
+                    node.low = 0
+                    con_list.append(node)
+                self.list.append(con_list)
 
-        w = -1  # To store stack extracted vertices
-        if u.low == u.disc:
-            l2 = []
-            while w != u.id:
-                node = stack.pop()
-                l2.append(node)
-                w = node.id
-                node.visited = False
-
-            self.list.append(l2)
+    def transpose(self):
+        g = DiGraph()
+        for i in self.graph.get_all_values():
+            g.add_node(i.id, i.pos)
+        for node in self.graph.get_all_values():
+            for dst, w in node.neighbors.items():
+                g.add_edge(dst, node.id, w)
+        return g
      
     def nullify_scc(self):
-        self.Time = 0
         self.list = []
         for runner in self.graph.get_all_values():
             runner.visited = False

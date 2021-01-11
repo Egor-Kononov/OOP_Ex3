@@ -40,8 +40,8 @@ class MyTest(unittest.TestCase):
 
     def test_connected_components(self):
         self.assertTrue(len(self.algo.connected_components()) == 5)
-        self.assertEqual(self.algo.connected_component(2), [self.algo.graph.get_node(1), self.algo.graph.get_node(4),
-                                                            self.algo.graph.get_node(3), self.algo.graph.get_node(2)])
+        self.assertEqual(self.algo.connected_component(2), [self.algo.graph.get_node(2), self.algo.graph.get_node(1),
+                                                            self.algo.graph.get_node(4), self.algo.graph.get_node(3)])
         self.assertTrue(self.algo.connected_component(10) == [])
         al = GraphAlgo()
         self.assertTrue(al.connected_components() == [])
