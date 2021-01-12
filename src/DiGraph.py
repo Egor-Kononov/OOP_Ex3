@@ -99,7 +99,7 @@ class Node:
         self.previous = None
 
     def __repr__(self):
-        return f"node : node_id:{self.id},"
+        return f"node_id :{self.id}"
 
     def add_neighbor(self, dest: int, weight: float):
         self.neighbors[dest] = weight
