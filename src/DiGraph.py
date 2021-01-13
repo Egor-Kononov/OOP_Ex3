@@ -63,7 +63,8 @@ class DiGraph(GraphInterface):
         return self.mc
 
     def add_edge(self, id1: int, id2: int, weight: float):
-        if id1 not in self.graph or id2 not in self.graph or id2 in self.graph[id1].neighbors or weight < 0:
+        if id1 not in self.graph or id2 not in self.graph or id2 in self.graph[id1].neighbors or weight < 0 \
+                or id1 == id2:
             return False
         self.graph[id1].add_neighbor(id2, weight)
         self.edge_size += 1
